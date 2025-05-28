@@ -28,17 +28,17 @@ export default function Favoritas() {
   }, []);
 
   const fetchFavoritos = async (usuarioid) => {
-    const favoritosRef = collection(db, 'favoritos');
-    const q = query(favoritosRef, where('usuarioid', '==', usuarioid));
-    const snapshot = await getDocs(q);
-    const data = snapshot.docs.map(doc => doc.data());
-    setFavoritos(data);
-  };
+  const favoritosRef = collection(db, 'favoritos');
+  const q = query(favoritosRef, where('usuarioId', '==', usuarioid));
+  const snapshot = await getDocs(q);
+  const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  setFavoritos(data);
+};
 
-  const mezclarRespuestas = (pregunta) => {
-    const respuestas = [...(pregunta.incorrecta || []), pregunta.correcta];
-    return respuestas.sort(() => Math.random() - 0.5);
-  };
+const mezclarRespuestas = (pregunta) => {
+  const respuestas = [...(pregunta.incorrectas || []), pregunta.correcta];
+  return respuestas.sort(() => Math.random() - 0.5);
+};
 
   if (!usuario) return <Text style={styles.cargando}>Cargando usuario...</Text>;
 
@@ -49,8 +49,8 @@ export default function Favoritas() {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Preguntas favoritas</Text>
-      {favoritos.map((pregunta, index) => (
-        <View key={index} style={styles.preguntaContainer}>
+      {favoritos.map((pregunta) => (
+        <View key={pregunta.id} style={styles.preguntaContainer}>
           <Text style={styles.pregunta}>{pregunta.pregunta}</Text>
           <Text><Text style={styles.label}>Categoría:</Text> {pregunta.categoria}</Text>
           <Text><Text style={styles.label}>Dificultad:</Text> {pregunta.dificultad}</Text>
