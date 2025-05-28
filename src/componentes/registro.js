@@ -3,7 +3,8 @@ import { View, Text, TextInput, TouchableOpacity, Alert, StyleSheet } from 'reac
 import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 import { getFirestore, doc, setDoc } from 'firebase/firestore';
 import { useNavigation } from '@react-navigation/native';
-import { app } from '../../firebaseConfig'; // importa tu configuración firebase
+import { app, db } from "../../firebase/firebaseConfig";
+
 
 export default function Registro() {
   const [formulario, setFormulario] = useState({
@@ -17,8 +18,7 @@ export default function Registro() {
   const navigation = useNavigation();
 
   const auth = getAuth(app);
-  const db = getFirestore(app);
-
+  
   const handleChange = (name, value) => {
     setFormulario(prev => ({ ...prev, [name]: value }));
   };

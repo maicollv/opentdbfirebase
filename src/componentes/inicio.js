@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import {View, Text, TextInput, Button, ScrollView, Image, TouchableOpacity, Alert, StyleSheet,} from "react-native";
 
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
+import { app, db } from "../../firebase/firebaseConfig";
 import {
-  getFirestore,
   doc,
   getDoc,
   updateDoc,
@@ -15,12 +15,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
-import { app } from "../../firebaseConfig";
 
 export default function Inicio() {
   const auth = getAuth(app);
-  const db = getFirestore(app);
-
+  
   const [usuario, setUsuario] = useState(null);
   const [form, setForm] = useState({
     nombre: "",

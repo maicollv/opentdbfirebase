@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
-import { useAppContext } from '../../contexto/contexto';
+import { AppProvider, useAppContext } from '../contexto/contexto';
+
 
 export default function Buscar() {
   const [busqueda, setBusqueda] = useState('');

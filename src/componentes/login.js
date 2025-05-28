@@ -10,9 +10,10 @@ export default function Login() {
   const navigation = useNavigation();
 
   const handleLogin = async () => {
-    try {w
+    try {
       await signInWithEmailAndPassword(auth, email, password);
       // Firebase ya mantiene sesión automáticamente
+      navigation.navigate('Menu');
     } catch (error) {
       Alert.alert('Error al iniciar sesión', error.message);
     }

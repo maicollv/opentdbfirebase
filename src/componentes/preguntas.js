@@ -2,14 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Button, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { getAuth } from 'firebase/auth';
 import { getFirestore, collection, addDoc, query, where, getDocs, deleteDoc, doc } from 'firebase/firestore';
-import { app } from '../../firebaseConfig';
+import { app, db } from "../../firebase/firebaseConfig";
 
 export default function Preguntas() {
   const [preguntas, setPreguntas] = useState([]);
   const [favoritos, setFavoritos] = useState([]);
   const [token, setToken] = useState('');
   const auth = getAuth(app);
-  const db = getFirestore(app);
   const user = auth.currentUser;
 
   useEffect(() => {
